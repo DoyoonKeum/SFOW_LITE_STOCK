@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.notice">
+
+	<!--  select 요소: select 쿼리문 실행
+		id속성: unique해야한다, 각 쿼리문의 요소를 구분하기 위함
+		 -->
+	<!-- 전체 게시글 수 조회 -->	 
+	<select id="totalcnt" resultType="int" parameterType="com.yeonoo.sfow.model.Criteria">
+		<![CDATA[
+			select count(*)
+			from notice
+		]]>
+		<include refid="search"/>
+	</select>
+	
+	<!-- 검색 조건 -->
+	<sql id="search">
+		<if test="type=='title'">
+			<![CDATA[
+				where title like concat('%',#{keyword},'%')
+			]]>		
+		</if>
+		<if test="type=='no'">
+			<![CDATA[
+				where no like concat('%',#{keyword},'%')
+			]]>		
+		</if>
+		<if test="type=='writername'">
+			<![CDATA[
+				where writername like concat('%',#{keyword},'%')
+			]]>		
+		</if>
+	</sql>
+	
+	
+	<!-- 공지사항 글 전체 리스트 -->
+	<select id="noticeList" resultType="noticeVO" parameterType="com.yeonoo.sfow.model.Criteria">
+	    	select * from notice
+		<include refid="search"/>
+		<![CDATA[
+			order by no desc 
+			limit #{pageStart},#{perPageNum}
+		]]>
+	</select>
+	
+	
+	
+	<!-- 글등록  -->
+	<insert id="noticeInsert" parameterType="noticeVO">
+		<selectKey resultType="int" keyProperty="no" order="AFTER">
+	    	select last_insert_id()
+	    </selectKey>
+	<![CDATA[
+	insert into notice(writername, title, content)
+			values(#{writername},#{title},#{content})	
+	]]>
+	</insert>
+	
+	<!-- 공지사항 글 -->
+	<select id="noticewe" resultType="noticeVO" parameterType="java.lang.Integer">
+		<![CDATA[
+		SELECT *
+FROM notice
+WHERE title LIKE '%{no}%';
+		]]>
+	</select>
+	
+	
+	<!-- 공지사항 글 상세보기 -->
+	<select id="getDetailNotice" resultType="noticeVO" parameterType="java.lang.Integer">
+		<![CDATA[
+			select *
+			from notice
+			where no = #{no}
+		]]>
+	</select>
+	
+	<!-- 공지사항 글 수정 -->
+	<select id="updateNotice" resultType="java.lang.Integer" parameterType="noticeVO">
+		<![CDATA[
+			update notice
+			set title=#{title}, content=#{content}, modidate=now()
+			where no = #{no}
+		]]>
+	</select>
+	
+	<!-- 공지사항 글 삭제 -->
+	<select id="deleteNotice" parameterType="java.lang.Integer">
+		<![CDATA[
+			delete 
+			from notice
+			where no=#{no}
+		]]>
+	</select>
+	
+	<!-- 조회수증가 -->
+	<update id="updateReadCount" parameterType="java.lang.Integer">
+	 	<![CDATA[
+			update notice
+			set readcnt = readcnt + 1
+			where no = #{no}
+		]]>
+	</update> 
+	
+	
+</mapper>
