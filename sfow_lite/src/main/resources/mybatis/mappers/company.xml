@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.company">
+
+	<!--  select 요소: select 쿼리문 실행
+		id속성: unique해야한다, 각 쿼리문의 요소를 구분하기 위함
+		 -->
+		 
+		 
+	
+	<!-- 거래처 전체 -->
+	<select id="cpmlist"  resultType="cpmVO">
+	<![CDATA[
+		select * 
+from ma_client_company
+where company_code=#{company_code}
+	]]>
+	</select>
+	
+	<!-- 거래처 등록  -->
+	<insert id="cpmInsert" parameterType="cpmVO">
+	<![CDATA[
+	insert into ma_client_company (company_code, client_Name, ceo_Name, client_Phone, client_Email, create_Date, update_Date) 
+values (#{company_code},  #{client_Name}, #{ceo_Name}, #{client_Phone}, #{client_Email}, now(), now())
+
+	]]>
+	</insert>
+	
+	<!-- 거래처 수정 -->
+	<select id="updatecpm" >
+		<![CDATA[
+		update ma_client_company 
+set client_Code=#{client_Code}, client_Name=#{client_Name}, update_Date=now(), ceo_Name=#{ceo_Name}, client_Phone=#{client_Phone}, client_Email=#{client_Email}
+where no=#{no}
+		]]>
+	</select>
+	
+	<!-- 거래처 삭제 -->
+	<select id="deletecpm" >
+		<![CDATA[
+			delete from ma_client_company
+			where no=#{no}
+		]]>
+	</select>
+	
+</mapper>

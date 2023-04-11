@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.companyInfo">
+
+
+	<resultMap id="companyInfo" type="com.yeonoo.sfow.basicinfo.domain.CompanyInfo">
+	  <result property="companyCode" column="company_code"/>
+	  <result property="companyName" column="company_name"/>
+	  <result property="ceoName" column="ceo_name"/>
+	  <result property="companyPhone" column="company_phone"/>
+	  <result property="email" column="email"/>
+	  <result property="address" column="address"/>
+	  <result property="memo" column="memo"/>
+	  <result property="createDate" column="created_date"/>
+	  <result property="updateDate" column="update_date"/>
+	  <result property="updateUser" column="update_user"/>
+	</resultMap>
+
+	<select id="companyInfo" parameterType="String" resultMap="companyInfo">
+		<![CDATA[
+			select company_code,company_name,ceo_name,company_phone,email,address,memo,created_date,update_date,update_user 
+			from ma_companyinfo
+			where company_code=#{code}
+		]]> 
+	</select>
+
+	<update id="companyInfoUpdate" >
+		<![CDATA[
+		UPDATE ma_companyinfo
+		SET company_name=#{companyName},ceo_name=#{ceoName},company_phone=#{companyPhone},email=#{email},address=#{address},memo=#{memo},update_date=CURRENT_TIMESTAMP,update_user=#{updateUser}
+		where company_code=#{companyCode}
+		]]>
+	</update>
+
+
+
+
+
+</mapper>
