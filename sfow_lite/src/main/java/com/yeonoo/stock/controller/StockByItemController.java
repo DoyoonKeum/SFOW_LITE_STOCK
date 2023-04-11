@@ -22,6 +22,7 @@ public class StockByItemController {
 	//페이지로 이동
 	@RequestMapping("/stockByItem")
 	public String StockByItem() {
+		
 		return "stock/stockByItemMain";
 	}
 
