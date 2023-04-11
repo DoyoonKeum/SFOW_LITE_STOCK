@@ -6,7 +6,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.yeonoo.stock.domain.Stock" alias="stock"/>
-
 		<typeAlias type="com.yeonoo.sfow.model.NoticeVO" alias="noticeVO"/>	
 		<typeAlias type="com.yeonoo.sfow.model.CpmVO" alias="cpmVO"/>	
 		<typeAlias type="com.yeonoo.sfow.basicinfo.domain.UserInfo" alias="userInfo"/>
