@@ -2,8 +2,6 @@ package com.yeonoo.sfow;
 
 import java.util.Locale;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,12 +17,6 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
-		return "login";
-	}
-	
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String layout(Locale locale, Model model,HttpSession session) {
-		Object sessionId=session.getAttribute("AUTHUSER");
 		return "layout";
 	}
 	
@@ -33,18 +25,4 @@ public class HomeController {
 		return "main";
 	}
 
-	@RequestMapping("/main2")
-	public String main(Model model) {
-		
-		
-		return "cpm/clist4";
-	}
-	
-	
-	@RequestMapping("/main3")
-	public String main3(Model model) {
-		
-		
-		return "notice/noticeList";
-	}
 }
