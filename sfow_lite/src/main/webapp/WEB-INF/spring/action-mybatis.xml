@@ -16,6 +16,7 @@
 		</property>
     </bean>
     
+    
     <!-- AOP 설정 -->
     <aop:aspectj-autoproxy />
     
